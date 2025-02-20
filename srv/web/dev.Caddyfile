@@ -1,0 +1,9 @@
+{
+	acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+odoo.qcert.dev {
+	handle /* {
+		reverse_proxy odoo:8069
+	}
+}

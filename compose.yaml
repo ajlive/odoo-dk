@@ -1,0 +1,35 @@
+services:
+  web:
+    build:
+      context: ./srv/web/
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_config:/config
+      - caddy_data:/data
+
+  odoo:
+    image: odoo:18
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo-data:/var/lib/odoo
+
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+      POSTGRES_DB: postgres
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+
+volumes:
+  caddy_config:
+  caddy_data:
+  odoo-db-data:
+  odoo-data:
